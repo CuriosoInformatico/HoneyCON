@@ -1,0 +1,21 @@
+body{
+  font-family: sans-serif;
+}
+
+#terminal{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  
+}
+
+.blink{
+  animation: blink .4s infinite;
+}
+
+@keyframes blink{
+  0% {opacity: 0};
+  
+}
