@@ -12,11 +12,14 @@
 <body>
 
   <div id="terminal">
-    <li v-for="cmd in cmds">{{ cmd }}</li>
+    <h2>Honey<span style="color: orange;">Linux</span> Alfa-v0.1</h2>
+    <h3>HoneyCON Edition</h3>
+    <ul>
+    <li v-for="cmd in cmds"><pre>{{ cmd }}</pre></li>
     </ul>
 
     $<span>{{ prompt }}</span><span class="blink">&#10074;</span>
-    <ul>
+
 
   </div>
 
@@ -42,9 +45,13 @@
             let options = cmd_parts.slice(1);
             if (cmd in bin){
               if (options in bin[cmd].options){
-                this.cmds.push(bin[cmd].options[options]());
-              } else {
-                this.cmds.push(`${cmd}: opción inválida -- '${options}'`);
+                this.cmds.push(bin[cmd].options[options](this));
+              }
+              else if (options == '--help' || options == '-h'){
+                this.cmds.push('Opciones disponibles:' + Object.keys(bin[cmd].options).join(', ').slice(1))
+              }
+              else {
+                this.cmds.push(`${cmd}: opción inválida -- '${options}'\nPruebe '${cmd} --help' para más información.`);
               }
             } else {
               this.cmds.push(`bash: ${cmd}: no se encontró la orden`);
