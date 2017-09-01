@@ -3,13 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <title>HoneyCON17</title>
-      <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/js/bin.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+
 </head>
 
 <body>
-  <div id="terminal">$
-    <span class="blink">&#10074;</span>
+
+  <div id="terminal">
+    <h2>Honey<span style="color: orange;">Linux</span> Alfa-v0.1</h2>
+    <h3>HoneyCON Edition</h3>
+    <ul>
+    <li v-for="cmd in cmds"><pre>{{ cmd }}</pre></li>
+    </ul>
+
+    $<span>{{ prompt }}</span><span class="blink">&#10074;</span>
+
+
   </div>
+
+
+    <script>
+
+
+      let app = new Vue({
+        el: "#terminal",
+        data: {
+          title_site: 'Demo',
+          its_birthday: true,
+          lista_ponentes : ['Samuel López', 'Maria José Montes'],
+          prompt : '',
+          cmds : []
+        },
+        methods : {
+          submit: function(){
+
+            this.cmds.push(this.prompt);
+            let cmd_parts = this.prompt.split(' ');
+            let cmd = cmd_parts[0];
+            let options = cmd_parts.slice(1);
+            if (cmd in bin){
+              if (options in bin[cmd].options){
+                this.cmds.push(bin[cmd].options[options](this));
+              }
+              else if (options == '--help' || options == '-h'){
+                this.cmds.push('Opciones disponibles:' + Object.keys(bin[cmd].options).join(', ').slice(1))
+              }
+              else {
+                this.cmds.push(`${cmd}: opción inválida -- '${options}'\nPruebe '${cmd} --help' para más información.`);
+              }
+            } else {
+              this.cmds.push(`bash: ${cmd}: no se encontró la orden`);
+            }
+            this.prompt = '';
+
+          }
+        }
+      });
+
+      window.addEventListener('keyup', function(e){
+
+        let availableKeys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- '.split('')
+        availableKeys.push('Enter');
+        availableKeys.push('Backspace');
+
+        if (availableKeys.indexOf(e.key) != -1){
+
+          if (e.key == 'Enter'){
+            app.submit();
+          } else if (e.key == 'Backspace'){
+            app.prompt = app.prompt.substr(0, app.prompt.length - 1);
+
+          }
+          else {
+            app.prompt = app.prompt + e.key;
+          }
+
+        }
+
+
+      });
+
+
+    </script>
+
 
 </body>
 </html>
