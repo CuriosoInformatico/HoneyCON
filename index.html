@@ -15,12 +15,9 @@
     <h2>Honey<span style="color: orange;">Linux</span> Alfa-v0.1</h2>
     <h3>HoneyCON Edition</h3>
     <ul>
-    <li v-for="cmd in cmds"><pre>{{ cmd }}</pre></li>
+    <li v-for="cmd in cmds"><pre v-html="cmd"></pre></li>
     </ul>
-
     $<span>{{ prompt }}</span><span class="blink">&#10074;</span>
-
-
   </div>
 
 
@@ -40,15 +37,19 @@
           submit: function(){
 
             this.cmds.push(this.prompt);
-            let cmd_parts = this.prompt.split(' ');
+            let cmd_parts = this.prompt.trim().split(' ');
             let cmd = cmd_parts[0];
-            let options = cmd_parts.slice(1);
-            if (cmd in bin){
-              if (options in bin[cmd].options){
-                this.cmds.push(bin[cmd].options[options](this));
+            let options = cmd_parts.slice(1).join(' ');
+            if (cmd in honeyLinux.bin){
+              if (honeyLinux.bin[cmd].options.indexOf(options) != -1)
+              {
+                this.cmds.push(honeyLinux.bin[cmd][options](this));
+              }
+              else if (honeyLinux.bin[cmd].options.indexOf('*') != -1){
+                this.cmds.push(honeyLinux.bin[cmd]['*'](this, options));
               }
               else if (options == '--help' || options == '-h'){
-                this.cmds.push('Opciones disponibles:' + Object.keys(bin[cmd].options).join(', ').slice(1))
+                this.cmds.push('Opciones disponibles:' + honeyLinux.bin[cmd].options.join(', ').slice(1))
               }
               else {
                 this.cmds.push(`${cmd}: opción inválida -- '${options}'\nPruebe '${cmd} --help' para más información.`);
@@ -64,9 +65,10 @@
 
       window.addEventListener('keyup', function(e){
 
-        let availableKeys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ- '.split('')
+        let availableKeys = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-/ .'.split('')
         availableKeys.push('Enter');
         availableKeys.push('Backspace');
+        availableKeys.push('Shift');
 
         if (availableKeys.indexOf(e.key) != -1){
 
@@ -75,12 +77,14 @@
           } else if (e.key == 'Backspace'){
             app.prompt = app.prompt.substr(0, app.prompt.length - 1);
 
-          }
+          } else if (e.key == 'Shift'){
+              
+          } 
           else {
             app.prompt = app.prompt + e.key;
           }
 
-        }
+        } 
 
 
       });
