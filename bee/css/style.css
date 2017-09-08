@@ -1,7 +1,5 @@
-body {
-  background: -webkit-linear-gradient(45deg, #FF7300, #FFA70B);
-  background: linear-gradient(45deg, #FF7300, #FFA70B);
-  background: #7ec0ee;
+#honeybee {
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13,6 +11,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   height: 100vh;
+  transition: 3s ease all;
 }
 
 .bee {
@@ -189,16 +188,16 @@ body {
   box-shadow: inset -10px 1px 0px 0px #FFF, inset -30px 7px 0px 0px #f6f6f6;
 }
 
-.blink {
+.honeyBlink {
   position: relative;
 }
-.blink:before {
+.honeyBlink:before {
   /*left pupil and eyeball shadows*/
   background-image: -webkit-radial-gradient(71% 38% circle, #ffffff 8%, rgba(0, 0, 0, 0) 8%), -webkit-radial-gradient(65% 50% circle, #363636 16%, rgba(0, 0, 0, 0) 16%), -webkit-radial-gradient(69% 47% circle, #434343 19%, rgba(0, 0, 0, 0) 19%), -webkit-radial-gradient(65% 50% circle, #292929 25%, rgba(0, 0, 0, 0) 25%), -webkit-radial-gradient(50% 55% ellipse, #f8f8ff 50%, rgba(0, 0, 0, 0) 50%), -webkit-radial-gradient(70% 50% circle, #ffffff 65%, rgba(0, 0, 0, 0) 65%);
   background-image: radial-gradient(circle at 71% 38%, #ffffff 8%, rgba(0, 0, 0, 0) 8%), radial-gradient(circle at 65% 50%, #363636 16%, rgba(0, 0, 0, 0) 16%), radial-gradient(circle at 69% 47%, #434343 19%, rgba(0, 0, 0, 0) 19%), radial-gradient(circle at 65% 50%, #292929 25%, rgba(0, 0, 0, 0) 25%), radial-gradient(ellipse at 50% 55%, #f8f8ff 50%, rgba(0, 0, 0, 0) 50%), radial-gradient(circle at 70% 50%, #ffffff 65%, rgba(0, 0, 0, 0) 65%);
   left: 2px;
 }
-.blink:before, .blink:after {
+.honeyBlink:before, .honeyBlink:after {
   -webkit-clip-path: ellipse(50% 20% at 50% 50%);
           clip-path: ellipse(50% 20% at 50% 50%);
   content: '';
@@ -208,10 +207,10 @@ body {
   border-radius: 50%;
   background-color: #F0F0F0;
   top: -67px;
-  -webkit-animation: blink 10s linear infinite;
-          animation: blink 10s linear infinite;
+  -webkit-animation: honeyBlink 10s linear infinite;
+          animation: honeyBlink 10s linear infinite;
 }
-.blink:after {
+.honeyBlink:after {
   /*right pupil and eyeball shadows*/
   background-image: -webkit-radial-gradient(41% 38% circle, #ffffff 8%, rgba(0, 0, 0, 0) 8%), -webkit-radial-gradient(35% 50% circle, #363636 16%, rgba(0, 0, 0, 0) 16%), -webkit-radial-gradient(39% 47% circle, #434343 19%, rgba(0, 0, 0, 0) 19%), -webkit-radial-gradient(35% 50% circle, #292929 25%, rgba(0, 0, 0, 0) 25%), -webkit-radial-gradient(50% 55% ellipse, #f8f8ff 50%, rgba(0, 0, 0, 0) 50%), -webkit-radial-gradient(70% 50% circle, #ffffff 65%, rgba(0, 0, 0, 0) 65%);
   background-image: radial-gradient(circle at 41% 38%, #ffffff 8%, rgba(0, 0, 0, 0) 8%), radial-gradient(circle at 35% 50%, #363636 16%, rgba(0, 0, 0, 0) 16%), radial-gradient(circle at 39% 47%, #434343 19%, rgba(0, 0, 0, 0) 19%), radial-gradient(circle at 35% 50%, #292929 25%, rgba(0, 0, 0, 0) 25%), radial-gradient(ellipse at 50% 55%, #f8f8ff 50%, rgba(0, 0, 0, 0) 50%), radial-gradient(circle at 70% 50%, #ffffff 65%, rgba(0, 0, 0, 0) 65%);
@@ -240,7 +239,7 @@ body {
           animation: shadow 2s ease-in-out infinite;
 }
 
-@-webkit-keyframes blink {
+@-webkit-keyframes honeyBlink {
   0% {
     -webkit-clip-path: ellipse(50% 50% at 50% 50%);
             clip-path: ellipse(50% 50% at 50% 50%);
